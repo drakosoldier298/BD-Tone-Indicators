@@ -47,6 +47,13 @@
 		{ tag: ["/nsx", "/ns", "/nx", "non-sexual intent"], colors: ['#FFBEBC', '#7a201d'] },
 		{ tag: ["/pc", "/pos", "positive connotation"], colors: ['#84D3B2', '#0e9e62'] },
 		{ tag: ["/nc", "/neg", "negative connotation"], colors: ['#FFCCBB', '#87452f'] },
+		{ tag: ["/npa", "/npa", "not passive agressive"], colors: ['#C8A2C8', '#C8A2C8'] },
+		{ tag: ["/nmay", "/nmay", "not mad at you"], colors: ['#EBA937', '#EBA937'] },
+		{ tag: ["/v", "vague"], colors: ['#ADD8E6', '#ADD8E6'] },
+		{ tag: ["/ssx", "slightly sexual intent"], colors: ['#FF9CEE', '#780b65'] },
+		{ tag: ["/dom", "dominant"], colors: ['#FF9CEE', '#780b65'] },
+		{ tag: ["/sub", "submissive"], colors: ['#FF9CEE', '#780b65'] },
+		{ tag: ["/inn", "innuendo"], colors: ['#FFBEBC', '#7a201d'] },
 	].map(v => { let desc = v.tag.pop(); return [v.tag, desc, v.colors] })
 	const findResults = (s, furtherSearch, directMatch) => {
 		if (directMatch) return toneMap.filter(v => v[0].find(x => x === s))[0];
