@@ -3,12 +3,12 @@
  * @originalauthor NomadNaomie, Zuri
  * @author Daedreus, Merith-TK
  * @description Displays the messages tone indicators or by highlighting a tone tag will give you the defintion
- * @version 1.3.5
+ * @version 1.4.0
  * @source https://github.com/drakosoldier298/BD-Tone-Indicators-extra
  * @updateUrl https://raw.githubusercontent.com/drakosoldier298/BD-Tone-Indicators-extra/main/ToneIndicator.plugin.js
  */
 
- module.exports = (_ => {
+module.exports = (_ => {
 	const toneMap = [
 		{ tag: ["/j", "joking"], colors: ['#BFFCC6', '#0d7a1a'] },
 		{ tag: ["/hj", "half joking"], colors: ['#D8FFD6', '#0d7a1a'] },
@@ -80,21 +80,26 @@
 		},
 		changelog: [
 			{
+				title: "1.4.0-TK - Fork and add more tones",
+				type: "fixed",
+				items: ["just forked the repo and added our own tone indicators, and ran the code through an formatter"]
+			},
+			{
 				title: "1.3.5 - Fixed Another Whitespace Issue",
 				type: "fixed",
-				items : ["Fixed an issue where space between slashes and non-tone indicators would be removed."]
+				items: ["Fixed an issue where space between slashes and non-tone indicators would be removed."]
 
 			},
 			{
 				title: "1.3.4 - Fixed autocomplete overriding",
 				type: "fixed",
-				items : ["Fixed an issue where autocomplete would override the tone indicator text in instances of multiple indicators per tone."]
+				items: ["Fixed an issue where autocomplete would override the tone indicator text in instances of multiple indicators per tone."]
 
 			},
 			{
 				title: "1.3.3 - Fixed Whitespace Issue",
 				type: "fixed",
-				items : ["Fixed an issue where tone indicators would not be detected with a space between the slash and indicator"]
+				items: ["Fixed an issue where tone indicators would not be detected with a space between the slash and indicator"]
 
 			},
 			{
@@ -175,10 +180,10 @@
 	};
 
 	if (!global.ZeresPluginLibrary) {
-		return class { load() { BdApi.showConfirmationModal("Zere's Library Missing", "Either Click Download Now to install it or manually install it. ", { confirmText: "Automatically Install", cancelText: "Cancel", onConfirm: () => { require("request").get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", async(error, result, body) => {!error && result.statusCode == 200 && body ? require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0PluginLibrary.plugin.js"), body, _ => BdApi.showToast("Finished downloading Zere's Plugin Library", { type: "success" })) : BdApi.showToast("Failed to download Zere's Plugin Library", { type: "error" }) }) } }) } };
+		return class { load() { BdApi.showConfirmationModal("Zere's Library Missing", "Either Click Download Now to install it or manually install it. ", { confirmText: "Automatically Install", cancelText: "Cancel", onConfirm: () => { require("request").get("https://rauenzi.github.io/BDPluginLibrary/release/0PluginLibrary.plugin.js", async (error, result, body) => { !error && result.statusCode == 200 && body ? require("fs").writeFile(require("path").join(BdApi.Plugins.folder, "0PluginLibrary.plugin.js"), body, _ => BdApi.showToast("Finished downloading Zere's Plugin Library", { type: "success" })) : BdApi.showToast("Failed to download Zere's Plugin Library", { type: "error" }) }) } }) } };
 	} else {
 		return (([Plugin, Zlib]) => {
-			const { WebpackModules, ContextMenu, Patcher, showToast, React, clearCSS, injectCSS } = {...Zlib, ...BdApi };
+			const { WebpackModules, ContextMenu, Patcher, showToast, React, clearCSS, injectCSS } = { ...Zlib, ...BdApi };
 			return class ToneIndicators extends Plugin {
 				generateBackgroundColor(r, e) { let n = "0x" + r.substring(1); return "rgba(" + [n >> 16 & 255, n >> 8 & 255, 255 & n].join(",") + `,${e})` }
 				getSettingsPanel() { const panel = this.buildSettingsPanel(); return panel.getElement(); }
@@ -216,29 +221,29 @@
 							if (!content) return;
 							let res = findResults(content, true).slice(0, Math.floor(this.settings.autocomplete.tonelistlimit));
 							if (!res) return;
-							return { results: { ret: res.map(x => { return { name: x[1], desc: x[0], color: x[2][false ? 1 : 0],content:content } }) } };
+							return { results: { ret: res.map(x => { return { name: x[1], desc: x[0], color: x[2][false ? 1 : 0], content: content } }) } };
 						},
 						renderResults: data => {
 							return [React.createElement(Autocomplete.Title, { title: ["Tone Indicator"] }),
-								data.results.ret.map((tag, i) => React.createElement(Autocomplete.Generic, {
-									index: i,
-									text: React.createElement('span', { style: { color: tag.color }, children: tag.name }),
-									description: React.createElement('span', { style: { color: tag.color }, children: tag.desc.join(' ') }),
-									tag: tag,
-									onClick: data.onClick,
-									onHover: data.onHover,
-									selected: data.selectedIndex === i,
-								}))
+							data.results.ret.map((tag, i) => React.createElement(Autocomplete.Generic, {
+								index: i,
+								text: React.createElement('span', { style: { color: tag.color }, children: tag.name }),
+								description: React.createElement('span', { style: { color: tag.color }, children: tag.desc.join(' ') }),
+								tag: tag,
+								onClick: data.onClick,
+								onHover: data.onHover,
+								selected: data.selectedIndex === i,
+							}))
 							]
 						},
-						onSelect: data => {let index = data.results.ret[data.index].desc.findIndex(t => t.startsWith(data.results.ret[data.index].content));return data.options.insertText(data.results.ret[data.index].desc[index == -1 ? 0 : index]) }
+						onSelect: data => { let index = data.results.ret[data.index].desc.findIndex(t => t.startsWith(data.results.ret[data.index].content)); return data.options.insertText(data.results.ret[data.index].desc[index == -1 ? 0 : index]) }
 					};
 				}
 
 				patchContextMenu() {
 					ContextMenu.getDiscordMenu("MessageContextMenu").then(menu => {
 						Patcher.after("ToneIndicator", menu, "default", (_, [props], ret) => {
-							let textSelection = document.getSelection().toString().replaceAll("/ ","/").trim();
+							let textSelection = document.getSelection().toString().replaceAll("/ ", "/").trim();
 							if (textSelection) {
 								textSelection = textSelection.match("/") ? textSelection : "/" + textSelection;
 								let textTag = findResults(textSelection.toLowerCase())[0];
@@ -258,7 +263,7 @@
 						if (props.message.content && props.message.content.includes("/")) {
 							let finishedProps = [],
 								modifiedTags = 0;
-							ret.props.children[0].forEach(x => typeof x === "string" ? x.split(/(\n)/g).map(y => y.split(/( )/g)).forEach((z) => {z.forEach((e,i) => {e === "/" && z.length > i+2 && findResults("/"+z[i+2],false,true) && (z.splice(i,3,`/${z[i+2]}`))}); z.forEach(a => findResults(a,false,true) ? (finishedProps.push(this.createTone(a) || a) && modifiedTags++) : finishedProps.push(a))}) : finishedProps.push(x));
+							ret.props.children[0].forEach(x => typeof x === "string" ? x.split(/(\n)/g).map(y => y.split(/( )/g)).forEach((z) => { z.forEach((e, i) => { e === "/" && z.length > i + 2 && findResults("/" + z[i + 2], false, true) && (z.splice(i, 3, `/${z[i + 2]}`)) }); z.forEach(a => findResults(a, false, true) ? (finishedProps.push(this.createTone(a) || a) && modifiedTags++) : finishedProps.push(a)) }) : finishedProps.push(x));
 							if (!finishedProps || !modifiedTags) return;
 							ret.props.children[0] = finishedProps;
 						}
@@ -289,8 +294,8 @@
 })();
 
 /*
-      ":"
-    ___:____     |"\/"|
+	  ":"
+	___:____     |"\/"|
   ,'        `.    \  /
   |  O        \___/  |
 ~^~^~^~^~^~^~^~^~^~^~^~^~
