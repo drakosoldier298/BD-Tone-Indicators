@@ -1,4 +1,4 @@
-#Tone indicator extras
+# Tone indicator extras
 - New tones! 
 
 this fork was made because i was tired of having my work undone everytime an update released, and i will be adding community wanted tones, something that the orginal author said people can do manually, as they were not wanting tot ake requests.
