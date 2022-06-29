@@ -1,13 +1,11 @@
 /**
  * @name ToneIndicators
- * @author NomadNaomie, Zuri
+ * @originalauthor NomadNaomie, Zuri
+ * @author Daedreus, Merith-TK
  * @description Displays the messages tone indicators or by highlighting a tone tag will give you the defintion
  * @version 1.3.5
- * @source https://github.com/NomadNaomie/BD-Tone-Indicators
- * @updateUrl https://raw.githubusercontent.com/NomadNaomie/BD-Tone-Indicators/main/ToneIndicator.plugin.js
- * @authorId 188323207793606656, 746871249791221880
- * @authorLink https://twitter.com/NomadNaomie
- * @invite hUfUtaRbXa
+ * @source https://github.com/drakosoldier298/BD-Tone-Indicators-extra
+ * @updateUrl https://raw.githubusercontent.com/drakosoldier298/BD-Tone-Indicators-extra/main/ToneIndicator.plugin.js
  */
 
  module.exports = (_ => {
