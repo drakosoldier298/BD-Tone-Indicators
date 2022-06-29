@@ -70,13 +70,15 @@ module.exports = (_ => {
 		info: {
 			name: 'ToneIndicators',
 			authors: [
+				{ name: 'Merith', discord_id: '210878074495959040', github_username: 'Merith-TK', website: 'https://merith.xyz'},
+				{ name: 'Daedreus', discord_id: '188496964030038017', github_username: 'drakosoldier298'},
 				{ name: 'NomadNaomie', discord_id: '188323207793606656', github_username: 'NomadNaomie', twitter_username: 'NomadNaomie' },
 				{ name: 'Zuri', discord_id: '746871249791221880', github_username: 'Zuriix', website: "https://zuriix.github.io/" }
 			],
-			version: '1.3.5',
+			version: '1.4.0-TK',
 			description: 'Displays the messages tone indicators or by highlighting a tone tag will give you the defintion',
-			github_raw: 'https://raw.githubusercontent.com/NomadNaomie/BD-Tone-Indicators/main/ToneIndicator.plugin.js',
-			github: 'https://github.com/NomadNaomie/BD-Tone-Indicators'
+			github_raw: 'https://raw.githubusercontent.com/drakosoldier298/BD-Tone-Indicators-extra/main/ToneIndicator.plugin.js',
+			github: 'https://github.com/drakosoldier298/BD-Tone-Indicators-extra'
 		},
 		changelog: [
 			{
